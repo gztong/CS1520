@@ -20,6 +20,7 @@
 
 		<!-- Tasks container -->
 		<div class="tasks-container col-md-9">
+			{% for task in tasks %}
 			<div class="task-container">
 				<div class="caption-full">
 					<h3 class = "title" ><a href="/task?id={{task.key.urlsafe}}">{{task.title}}</a></h3>
@@ -38,8 +39,20 @@
 					<img class="img-responsive" src="http://placehold.it/800x300" alt="">
 				</div>
 				{% endif %}
-				
+
+				<div class="ratings">
+					<p class="comment pull-right">3 comments</p>
+					<p>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star"></span>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						4.0 stars
+					</p>
+				</div>
 			</div>
+			{% endfor %}
 		</div>
 		<!-- Task container -->
 

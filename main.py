@@ -47,6 +47,10 @@ class MainPageHandler(webapp2.RequestHandler):
        }
        render_template(self, 'login.html', page_params)
 
+class MapPageHandler(webapp2.RequestHandler):
+  def get(self):
+    render_template(self, 'map_page.html', {})
+
 
 class PostPageHandler(webapp2.RequestHandler):
   def get(self):
@@ -58,8 +62,8 @@ class PostTaskHandler(webapp2.RequestHandler):
     task = Task_Model()
     task.title = cgi.escape(self.request.get('title'))
     task.author = "null"
-    task.content = cgi.escape(self.request.get('desc'))
-    task.category = cgi.escape(self.request.get('category'))
+    task.content = self.request.get('desc')
+    task.category =self.request.get('category')
     task._put()
     self.redirect('/')
     # self.response.write(cgi.escape(self.request.get('desc')))
@@ -117,7 +121,8 @@ mappings = [
   # ('/dumb', DumbHandler),
   # ('/notdumb', NotDumbHandler),
   ('/task', TaskDetailHandler),
-  ('/post', PostPageHandler)
+  ('/post', PostPageHandler),
+  ('/map', MapPageHandler)
 ]
 
 app = webapp2.WSGIApplication(mappings, debug=True)
