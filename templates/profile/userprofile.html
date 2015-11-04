@@ -1,6 +1,23 @@
 {% extends "_base.html" %}
 {% block bodycontent %}
- <div id="w">
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html">
+  <title>User Profile with Content Tabs</title>
+  <meta name="author" content="Lun">
+  <link rel="shortcut icon" href="http://designshack.net/favicon.ico">
+  <link rel="icon" href="http:auta-me.appspot.com">
+  <link rel="stylesheet" type="text/css" media="all" href="css/styles.css">
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+  <div id="topbar">
+  <a href="auta-me.appspot.com">Back to Autta</a>
+  </div>
+  
+  <div id="w">
     <div id="content" class="clearfix">
       <div id="userphoto"><img src="images/avatar.png" alt="default avatar"></div>
       <h1>My Profile</h1>
@@ -56,7 +73,23 @@
       </section>
     </div><!-- @end #content -->
   </div><!-- @end #w -->
-
+<script type="text/javascript">
+$(function(){
+  $('#profiletabs ul li a').on('click', function(e){
+    e.preventDefault();
+    var newcontent = $(this).attr('href');
+    
+    $('#profiletabs ul li a').removeClass('sel');
+    $(this).addClass('sel');
+    
+    $('#content section').each(function(){
+      if(!$(this).hasClass('hidden')) { $(this).addClass('hidden'); }
+    });
+    
+    $(newcontent).removeClass('hidden');
+  });
+});
+</script>
+</body>
+</html> 
 {% endblock %}
-
-	{% endblock %}
