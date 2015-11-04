@@ -1,7 +1,6 @@
 {% extends "_base.html" %}
 {% block bodycontent %}
 
-<br><br><br><br>
 <!-- Page Content -->
 <div class="container">
 
@@ -9,11 +8,11 @@
 
 		<!-- sidebar -->
 		<div class="col-md-3 toolbar">
-			<p class="lead">sidebar</p>
+			<p class="lead">Filter</p>
 			<div class="list-group">
-				<a href="#" class="list-group-item active">Category 1</a>
-				<a href="#" class="list-group-item">Category 2</a>
-				<a href="#" class="list-group-item">Category 3</a>
+				<a href="#" class="list-group-item active">All</a>
+				<a href="#" class="list-group-item">Household</a>
+				<a href="#" class="list-group-item">School Work</a>
 			</div>
 		</div>
 		<!-- /sidebar -->
@@ -41,7 +40,7 @@
 				{% endif %}
 
 				<div class="ratings">
-					<p class="comment pull-right">3 comments</p>
+					<p class="comment pull-right">3 comments{{task.comments}}</p>
 					<p>
 						<span class="glyphicon glyphicon-star"></span>
 						<span class="glyphicon glyphicon-star"></span>
@@ -58,6 +57,4 @@
 
 	</div>
 
-	<!-- {% block task_content %} {% endblock %} -->
-
-	{% endblock %}
+{% endblock %}

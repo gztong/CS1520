@@ -28,6 +28,13 @@ def get_user_email():
     result = user.email()
     return result
 
+def get_user_nickname():
+  result = None
+  user = users.get_current_user()
+  if user:
+    result = user.nickname()
+    return result
+
 ###############################################################################
 class MainPageHandler(webapp2.RequestHandler):
   def get(self):
@@ -35,17 +42,22 @@ class MainPageHandler(webapp2.RequestHandler):
     if user_email:
       tasks = get_tasks()
       page_params = {
-        'tasks': tasks,
-        'user_email': user_email
+      'tasks': tasks,
+      'user_email': user_email,
+      'nickname': get_user_nickname()
         # 'login_url': users.create_login_url(),
         # 'logout_url': users.create_logout_url('/')
       }
       render_template(self, 'index1.html', page_params)
     else:
-       page_params = {
-       'login_url': users.create_login_url('/')
-       }
-       render_template(self, 'login.html', page_params)
+      page_params = {
+      'login_url': users.create_login_url('/')
+      }
+      render_template(self, 'login.html', page_params)
+
+class ProfilePageHandler(webapp2.RequestHandler):
+  def get(self):
+    render_template(self, 'profile.html', {})
 
 class MapPageHandler(webapp2.RequestHandler):
   def get(self):
@@ -107,7 +119,8 @@ def get_tasks():
   q = q.order(-Task_Model.time_created)
   for task in q.fetch(100):
     result.append(task)
-    return result
+ 
+  return result
 
 ###############################################################################
 def get_task(task_id):
@@ -122,7 +135,8 @@ mappings = [
   # ('/notdumb', NotDumbHandler),
   ('/task', TaskDetailHandler),
   ('/post', PostPageHandler),
-  ('/map', MapPageHandler)
+  ('/map', MapPageHandler),
+  ('/profile', ProfilePageHandler)
 ]
 
 app = webapp2.WSGIApplication(mappings, debug=True)
