@@ -8,5 +8,13 @@ handlers:
 - url: /static
   static_dir: static
 
+- url: /stylesheets/(.*\.(css)) 
+  static_files: stylesheets/\1
+  upload: stylesheets/(.*\.(css))
+
+- url: /js/(.*\.(js)) 
+  static_files: js/\1
+  upload: js/(.*\.(js))
+
 - url: /.*
   script: main.app

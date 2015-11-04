@@ -322,6 +322,17 @@ body
 #portfolio .image_thumb a:hover { text-decoration: none; }
 /* end portfolio */
 
+/* start task */
+
+#task-container .task
+{
+	border: 1px solid #ffa400;
+	width: 800px;
+	padding: 10px 0 10px 0;
+	text-align: center;
+	margin: auto;
+}
+
 /* start contact */
 #contact
 {
