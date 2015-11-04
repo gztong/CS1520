@@ -10,6 +10,7 @@ from google.appengine.ext import ndb
 from google.appengine.api import images
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.api import mail
 
 ###############################################################################
 # We'll just use this convenience function to retrieve and render a template.
@@ -68,6 +69,9 @@ class PostPageHandler(webapp2.RequestHandler):
   def get(self):
     render_template(self, 'post_page.html', {})
 
+class ContactUsPageHandler(webapp2.RequestHandler):
+  def get(self):
+    render_template(self, 'main_contact.html')
 
 class PostTaskHandler(webapp2.RequestHandler):
   def post(self):
@@ -100,6 +104,26 @@ class TaskDetailHandler(webapp2.RequestHandler):
       render_template(self, 'task_detail.html', page_params)
     else:
       self.redirect('/')
+####################################################################################
+#handle contact form
+class FormHandler(webapp2.RequestHandler):
+  def post(self):
+    name = self.request.get('name')
+    message = self.request.get('message')
+    email = self.request.get('email')
+    
+    params = {
+      'name': name,
+      'message': message,
+      'email': email
+    }
+    
+    from_address = 'auta-me-1@appspot.gserviceaccount.com'
+    subject = 'Contact from ' + name
+    body = 'Message from ' + email + ':\n\n' + message
+    mail.send_mail(from_address, 'autame1520@gmail.com', subject, body)
+
+    render_template(self, 'response_contact.html', params)
 
 ###############################################################################
 # models
@@ -136,7 +160,8 @@ mappings = [
   ('/task', TaskDetailHandler),
   ('/post', PostPageHandler),
   ('/map', MapPageHandler),
-  ('/profile', ProfilePageHandler)
+  ('/contact', ContactUsPageHandler),
+  ('/send-contact', FormHandler)
 ]
 
 app = webapp2.WSGIApplication(mappings, debug=True)
